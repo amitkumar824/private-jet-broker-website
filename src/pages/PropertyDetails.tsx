@@ -1,15 +1,15 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { 
-  Bed, 
-  Bath, 
-  Maximize, 
+  Users, 
+  Plane, 
+  Gauge, 
   ChevronLeft, 
   ChevronRight, 
-  Waves, 
-  Wine, 
-  Car, 
-  Film, 
+  Wifi,
+  Wine,
+  Armchair,
+  Utensils,
   Download,
   Mail,
   Phone
@@ -18,29 +18,78 @@ import {
 export default function PropertyDetails() {
   const { id } = useParams();
 
-  // In a real app, we'd fetch data for this 'id'
-  const property = {
-    name: 'The Obsidian Residence',
-    location: 'Beverly Hills, California',
-    price: '$45,000,000',
-    beds: 6,
-    baths: 8,
-    sqft: '12,500',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCwZKUKFT21D_cMM8Su_giWtwDzZCSf-o9apqYPBD5ApLdnvgc2e82wucSFf44Wu62KoD4ZxmKx8AvHkfLUT9jWPvpyayhH3UTap2duue2J6yabs80bntWGXiBZIOzEVje9HI_5cGg_AuepcRJR7kyZm46OaPp0aQJIf5lgYmmHOCD4rTVS6vfuOBpR1XuMq58Mx1UGnHTM5xVOY_hMHYi79ynNlNpgbJGhfeZcHLtdThCFdEfWOU0Pb-iCLo7RrteJLGNfVWv535Q',
-    description1: 'Nestled in the prestigious hills overlooking the city, The Obsidian Residence is a triumph of contemporary design and uncompromising luxury. Designed by internationally acclaimed architect Marcus Vahn, this estate redefines indoor-outdoor living with sweeping, uninterrupted vistas from every vantage point.',
-    description2: 'The material palette is a study in restrained opulence—rare black marble, brushed bronze accents, and hand-troweled plaster walls create a serene, gallery-like atmosphere. Every detail has been meticulously curated to showcase rather than compete with the natural surroundings and the owner\'s art collection.',
+  // Jet data based on ID
+  const jets: Record<string, typeof defaultJet> = {
+    'gulfstream-g650': {
+      name: 'Gulfstream G650ER',
+      location: 'Heavy Jet',
+      price: '$12,500/hour',
+      passengers: 16,
+      range: '7,500 nm',
+      speed: 'Mach 0.925',
+      heroImage: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80',
+      description1: 'The Gulfstream G650ER represents the pinnacle of ultra-long-range business aviation. With its exceptional range and unmatched cabin comfort, this aircraft connects distant cities non-stop while providing an oasis of tranquility at 51,000 feet.',
+      description2: 'Every element of the cabin has been meticulously engineered for comfort— whisper-quiet acoustics, 100% fresh air replenished every two minutes, and panoramic windows flooding the interior with natural light. The G650ER redefines what\'s possible in business aviation.',
+      features: [
+        { id: 1, title: 'High-Speed Wi-Fi', desc: 'Ka-band connectivity for streaming and video calls.', icon: Wifi },
+        { id: 2, title: 'Premium Bar', desc: 'Fully stocked bar with crystal glassware.', icon: Wine },
+        { id: 3, title: 'Lie-Flat Seats', desc: '16 handcrafted seats converting to berths.', icon: Armchair },
+        { id: 4, title: 'Gourmet Galley', desc: 'Full kitchen with convection and microwave ovens.', icon: Utensils },
+      ],
+      agent: {
+        name: 'Alexander Wright',
+        role: 'Senior Aviation Consultant',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA2zqcXAEVwjx-vkZF7VpdEeRfKKwazx_NjiLhLbYNBricq3BJT-yLjMpnjFiqk-aDaDQS-P1EAgFwbPBK2qrPKTdP6OSbpiQoiqLjfiyf3DIqFloyPyNdDXdQj84WX67eZt0XNI-2SU0wheeX2mWuWs8_vywNREvNCMLLbaMXjrwiQeKLRD55BMmXRQIlAY-5lbk_lV4GkTlUFBvZLptMYaycKimo9zuskHa70FPkCx8iIMCiodff52Ltis5wK1jMBiQXaPaY2oPQ'
+      }
+    },
+    'bombardier-global-7500': {
+      name: 'Bombardier Global 7500',
+      location: 'Ultra Long Range',
+      price: '$14,000/hour',
+      passengers: 19,
+      range: '7,700 nm',
+      speed: 'Mach 0.925',
+      heroImage: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80',
+      description1: 'The Bombardier Global 7500 is the world\'s largest and longest-range business jet, offering four distinct living spaces and a dedicated crew suite. With its revolutionary wings and next-generation engines, this aircraft delivers unprecedented performance.',
+      description2: 'The revolutionary Nuage seat introduces the first new seating architecture in business aviation in 30 years. Combined with the smoothest ride technology and the quietest cabin in its class, the Global 7500 ensures you arrive refreshed and ready.',
+      features: [
+        { id: 1, title: 'High-Speed Wi-Fi', desc: 'Seamless global connectivity.', icon: Wifi },
+        { id: 2, title: 'Premium Bar', desc: 'Champagne and spirits selection.', icon: Wine },
+        { id: 3, title: 'Lie-Flat Seats', desc: '19 Nuage seats with zero-gravity position.', icon: Armchair },
+        { id: 4, title: 'Gourmet Galley', desc: 'Large aft galley for five-star dining.', icon: Utensils },
+      ],
+      agent: {
+        name: 'Victoria Chen',
+        role: 'Director of Charter Operations',
+        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop'
+      }
+    }
+  };
+
+  const defaultJet = {
+    name: 'Gulfstream G650ER',
+    location: 'Heavy Jet',
+    price: '$12,500/hour',
+    passengers: 16,
+    range: '7,500 nm',
+    speed: 'Mach 0.925',
+    heroImage: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80',
+    description1: 'The Gulfstream G650ER represents the pinnacle of ultra-long-range business aviation. With its exceptional range and unmatched cabin comfort, this aircraft connects distant cities non-stop while providing an oasis of tranquility at 51,000 feet.',
+    description2: 'Every element of the cabin has been meticulously engineered for comfort— whisper-quiet acoustics, 100% fresh air replenished every two minutes, and panoramic windows flooding the interior with natural light.',
     features: [
-      { id: 1, title: 'Infinity Edge Pool', desc: 'Heated, zero-edge overlooking the canyon.', icon: Waves },
-      { id: 2, title: 'Wine Cellar', desc: 'Climate-controlled, 2,000 bottle capacity.', icon: Wine },
-      { id: 3, title: 'Showroom Garage', desc: '6-car subterranean display gallery.', icon: Car },
-      { id: 4, title: 'Private Cinema', desc: 'Acoustically tuned, 12-seat tiered theater.', icon: Film },
+      { id: 1, title: 'High-Speed Wi-Fi', desc: 'Ka-band connectivity for streaming and video calls.', icon: Wifi },
+      { id: 2, title: 'Premium Bar', desc: 'Fully stocked bar with crystal glassware.', icon: Wine },
+      { id: 3, title: 'Lie-Flat Seats', desc: '16 handcrafted seats converting to berths.', icon: Armchair },
+      { id: 4, title: 'Gourmet Galley', desc: 'Full kitchen with convection and microwave ovens.', icon: Utensils },
     ],
     agent: {
       name: 'Alexander Wright',
-      role: 'Senior Director, Luxury Estates',
+      role: 'Senior Aviation Consultant',
       image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA2zqcXAEVwjx-vkZF7VpdEeRfKKwazx_NjiLhLbYNBricq3BJT-yLjMpnjFiqk-aDaDQS-P1EAgFwbPBK2qrPKTdP6OSbpiQoiqLjfiyf3DIqFloyPyNdDXdQj84WX67eZt0XNI-2SU0wheeX2mWuWs8_vywNREvNCMLLbaMXjrwiQeKLRD55BMmXRQIlAY-5lbk_lV4GkTlUFBvZLptMYaycKimo9zuskHa70FPkCx8iIMCiodff52Ltis5wK1jMBiQXaPaY2oPQ'
     }
   };
+
+  const jet = id && jets[id] ? jets[id] : defaultJet;
 
   return (
     <div className="pb-32">
@@ -50,8 +99,8 @@ export default function PropertyDetails() {
           initial={{ scale: 1.05 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5 }}
-          src={property.heroImage} 
-          alt={property.name} 
+          src={jet.heroImage} 
+          alt={jet.name} 
           className="w-full h-full object-cover grayscale-[10%]"
           referrerPolicy="no-referrer"
         />
@@ -63,7 +112,7 @@ export default function PropertyDetails() {
             animate={{ opacity: 1, y: 0 }}
             className="font-label-caps text-gold text-xs mb-4"
           >
-            {property.location}
+            {jet.location}
           </motion.p>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -71,15 +120,15 @@ export default function PropertyDetails() {
             transition={{ delay: 0.2 }}
             className="text-5xl md:text-7xl font-serif mb-6"
           >
-            {property.name}
+            {jet.name}
           </motion.h1>
           <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-            <p className="text-4xl font-light text-white">{property.price}</p>
+            <p className="text-4xl font-light text-white">{jet.price}</p>
             <div className="hidden sm:block h-6 w-px bg-white/20" />
             <div className="flex gap-8 text-neutral-400 font-label-caps text-[10px] tracking-widest">
-              <span className="flex items-center gap-2"><Bed className="w-4 h-4 text-gold" /> {property.beds} BEDS</span>
-              <span className="flex items-center gap-2"><Bath className="w-4 h-4 text-gold" /> {property.baths} BATHS</span>
-              <span className="flex items-center gap-2"><Maximize className="w-4 h-4 text-gold" /> {property.sqft} SQ FT</span>
+              <span className="flex items-center gap-2"><Users className="w-4 h-4 text-gold" /> {jet.passengers} PASSENGERS</span>
+              <span className="flex items-center gap-2"><Plane className="w-4 h-4 text-gold" /> {jet.range} RANGE</span>
+              <span className="flex items-center gap-2"><Gauge className="w-4 h-4 text-gold" /> {jet.speed} SPEED</span>
             </div>
           </div>
         </div>
@@ -92,9 +141,9 @@ export default function PropertyDetails() {
           <button className="w-12 h-12 border border-gold/40 flex items-center justify-center text-white hover:bg-gold hover:text-obsidian transition-all">
             <ChevronRight className="w-5 h-5" />
           </button>
-          <div className="px-6 h-12 border border-gold/40 bg-obsidian/40 backdrop-blur-md flex items-center justify-center font-label-caps text-[10px] text-white cursor-pointer hover:bg-gold/10 transition-colors">
-            VIEW GALLERY (24)
-          </div>
+          <Link to="/concierge" className="px-6 h-12 border border-gold/40 bg-obsidian/40 backdrop-blur-md flex items-center justify-center font-label-caps text-[10px] text-white cursor-pointer hover:bg-gold hover:text-obsidian transition-colors">
+            REQUEST CHARTER
+          </Link>
         </div>
       </section>
 
@@ -104,13 +153,13 @@ export default function PropertyDetails() {
         <div className="lg:col-span-8 space-y-24">
           <section>
             <h2 className="text-3xl md:text-4xl font-serif border-b border-white/10 pb-8 mb-10">
-              A Masterpiece of Modern Architecture
+              The Pinnacle of Aviation Excellence
             </h2>
             <p className="text-lg text-neutral-400 font-light leading-relaxed mb-8">
-              {property.description1}
+              {jet.description1}
             </p>
             <p className="text-lg text-neutral-400 font-light leading-relaxed">
-              {property.description2}
+              {jet.description2}
             </p>
           </section>
 
@@ -118,7 +167,7 @@ export default function PropertyDetails() {
           <section>
             <h3 className="font-label-caps text-gold text-[10px] mb-10">KEY FEATURES</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {property.features.map(feat => {
+              {jet.features.map(feat => {
                 const Icon = feat.icon;
                 return (
                   <div key={feat.id} className="bg-obsidian-light p-8 border border-white/5 flex flex-col items-start gap-6 hover:border-gold/30 transition-all group">
@@ -151,31 +200,31 @@ export default function PropertyDetails() {
           <div className="sticky top-32 bg-obsidian-light p-8 md:p-12 border border-white/10 flex flex-col gap-10 shadow-2xl">
             <div>
               <p className="font-label-caps text-gold text-[10px] mb-2 uppercase">OFFERED AT</p>
-              <p className="text-3xl font-serif text-white">{property.price}</p>
+              <p className="text-3xl font-serif text-white">{jet.price}</p>
             </div>
 
-            <button className="w-full py-5 px-6 border border-gold text-gold font-label-caps text-[10px] hover:bg-gold hover:text-obsidian transition-all">
-              SCHEDULE A PRIVATE TOUR
-            </button>
+            <Link to="/concierge" className="w-full py-5 px-6 border border-gold text-gold font-label-caps text-[10px] hover:bg-gold hover:text-obsidian transition-all text-center block">
+              REQUEST A QUOTE
+            </Link>
 
             <button className="w-full flex items-center justify-center gap-3 text-neutral-400 font-label-caps text-[10px] hover:text-white transition-colors border-b border-transparent hover:border-gold pb-2">
               <Download className="w-4 h-4" />
-              DOWNLOAD DOSSIER
+              DOWNLOAD SPECS
             </button>
 
             <div className="pt-10 border-t border-white/10">
-              <p className="font-label-caps text-gold text-[10px] mb-6">LISTING AGENT</p>
+              <p className="font-label-caps text-gold text-[10px] mb-6">CHARTER CONSULTANT</p>
               <div className="flex items-center gap-6">
                 <img 
-                  src={property.agent.image} 
-                  alt={property.agent.name} 
+                  src={jet.agent.image} 
+                  alt={jet.agent.name} 
                   className="w-16 h-16 object-cover border border-gold/20"
                   referrerPolicy="no-referrer"
                 />
                 <div>
-                  <h5 className="text-lg font-serif">{property.agent.name}</h5>
-                  <p className="text-xs text-neutral-500 font-light">{property.agent.role}</p>
-                  <Link to="/concierge" className="text-gold text-xs font-light hover:underline mt-2 inline-block">Contact Agent</Link>
+                  <h5 className="text-lg font-serif">{jet.agent.name}</h5>
+                  <p className="text-xs text-neutral-500 font-light">{jet.agent.role}</p>
+                  <Link to="/concierge" className="text-gold text-xs font-light hover:underline mt-2 inline-block">Contact Consultant</Link>
                 </div>
               </div>
             </div>
