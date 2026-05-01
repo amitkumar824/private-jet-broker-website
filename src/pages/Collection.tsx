@@ -129,7 +129,7 @@ export default function Collection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: idx * 0.1 }}
-              className={`${jet.featured ? 'col-span-12 lg:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'} group`}
+              className="col-span-12 md:col-span-6 lg:col-span-6 group"
             >
               <Link to={`/property/${jet.id}`} className="block">
                 <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900 border border-white/5">
